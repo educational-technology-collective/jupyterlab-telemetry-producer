@@ -1,11 +1,14 @@
 import {
   JupyterFrontEnd,
-  JupyterFrontEndPlugin
+  JupyterFrontEndPlugin,
+  LabShell
 } from '@jupyterlab/application';
 
 import { requestAPI } from './handler';
 
-import { ITelemetryRouter } from 'telemetry-router'
+import { ITelemetryRouter } from 'telemetry-router';
+
+import { Notebook, NotebookPanel } from '@jupyterlab/notebook';
 
 /**
  * Initialization data for the telemetry-producer extension.
@@ -33,8 +36,20 @@ const plugin: JupyterFrontEndPlugin<void> = {
         );
       });
 
-    console.log('producer test')
-    telemetryRouter.hi({ 'name': 'activeCellChanged' })
+    const labShell = app.shell as LabShell;
+    labShell.currentChanged.connect(() => {
+      const currentWidget = app.shell.currentWidget;
+      const notebookWidget = currentWidget as NotebookPanel;
+      const notebook = notebookWidget.content as Notebook;
+
+      const onScrolled = () => {
+        telemetryRouter.consumeEventSignal({
+          'name': 'scrolling',
+          'time': Date.now()
+        })
+      }
+      notebook.node.addEventListener('scroll', onScrolled)
+    })
   }
 };
 
