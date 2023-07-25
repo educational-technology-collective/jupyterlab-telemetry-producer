@@ -33,7 +33,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
       const onScrolled = () => {
         telemetryRouter.consumeEventSignal({
           'name': 'scrolling',
-          'time': Date.now()
+          'time': new Date().toISOString()
         })
       }
       notebook.node.addEventListener('scroll', onScrolled)
