@@ -34,7 +34,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
       });
 
     console.log('producer test')
-    telemetryRouter.hi()
+    telemetryRouter.hi({ 'name': 'activeCellChanged' })
   }
 };
 
