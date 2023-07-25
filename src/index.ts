@@ -5,6 +5,8 @@ import {
 
 import { requestAPI } from './handler';
 
+import { ITelemetryRouter } from 'telemetry-router'
+
 /**
  * Initialization data for the telemetry-producer extension.
  */
@@ -12,7 +14,13 @@ const plugin: JupyterFrontEndPlugin<void> = {
   id: 'telemetry-producer:plugin',
   description: 'A JupyterLab extension.',
   autoStart: true,
-  activate: (app: JupyterFrontEnd) => {
+  requires: [
+    ITelemetryRouter
+  ],
+  activate: (
+    app: JupyterFrontEnd,
+    telemetryRouter: ITelemetryRouter
+  ) => {
     console.log('JupyterLab extension telemetry-producer is activated!');
 
     requestAPI<any>('get-example')
@@ -24,6 +32,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
           `The telemetry_producer server extension appears to be missing.\n${reason}`
         );
       });
+
+    console.log('producer test')
+    telemetryRouter.hi()
   }
 };
 

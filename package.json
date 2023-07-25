@@ -102,7 +102,14 @@
             }
         },
         "extension": true,
-        "outputDir": "telemetry_producer/labextension"
+        "outputDir": "telemetry_producer/labextension",
+        "sharedPackages": {
+            "telemetry-router": {
+                "bundled": false,
+                "singleton": true,
+                "strictVersion": true
+            }
+        }
     },
     "eslintIgnore": [
         "node_modules",
