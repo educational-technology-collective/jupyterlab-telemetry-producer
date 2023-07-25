@@ -5678,13 +5678,14 @@ __metadata:
   linkType: soft
 
 "telemetry-router@npm:^0.1.0":
-  version: 0.1.3
-  resolution: "telemetry-router@npm:0.1.3"
+  version: 0.1.4
+  resolution: "telemetry-router@npm:0.1.4"
   dependencies:
     "@jupyterlab/application": ^4.0.0
     "@jupyterlab/coreutils": ^6.0.0
+    "@jupyterlab/notebook": ^4.0.3
     "@jupyterlab/services": ^7.0.0
-  checksum: 7083be9ca0b92d9313a0c45bc79e231de2b343d02324694dd3c9c5cbc2bda9ccc8079516564645d152cfbf13f312c5bc1d7001836f76551cf6e6cdbef5882571
+  checksum: 17a0205317d525891c01a555166a8bfd3feab8221fb4cdab1ad9c2b67ae02264e8b243743885749aa62151da3bcfbf132a0430036929f86b9950eb1ce36f3ca4
   languageName: node
   linkType: hard
 

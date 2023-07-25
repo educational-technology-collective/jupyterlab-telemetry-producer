@@ -39,9 +39,10 @@ const plugin: JupyterFrontEndPlugin<void> = {
     const labShell = app.shell as LabShell;
     labShell.currentChanged.connect(() => {
       const currentWidget = app.shell.currentWidget;
-      const notebookWidget = currentWidget as NotebookPanel;
-      const notebook = notebookWidget.content as Notebook;
+      const notebookPanel = currentWidget as NotebookPanel;
+      const notebook = notebookPanel.content as Notebook;
 
+      telemetryRouter.loadNotebook(notebookPanel)
       const onScrolled = () => {
         telemetryRouter.consumeEventSignal({
           'name': 'scrolling',
