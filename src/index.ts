@@ -4,8 +4,6 @@ import {
   LabShell
 } from '@jupyterlab/application';
 
-// import { requestAPI } from './handler';
-
 import { ITelemetryRouter } from 'telemetry-router';
 
 import { Notebook, NotebookPanel } from '@jupyterlab/notebook';

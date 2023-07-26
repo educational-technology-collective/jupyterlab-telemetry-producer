@@ -346,9 +346,9 @@ __metadata:
   linkType: hard
 
 "@eslint-community/regexpp@npm:^4.4.0":
-  version: 4.6.1
-  resolution: "@eslint-community/regexpp@npm:4.6.1"
-  checksum: 5741f457f5cc4ec89389d185c44c511fc85ef3630c6ce033a64c779e72f7aa3a7d5bcdc45d54612989f0dc6ea958438c02d363797b3e4f87952fc6878481da0e
+  version: 4.6.2
+  resolution: "@eslint-community/regexpp@npm:4.6.2"
+  checksum: a3c341377b46b54fa228f455771b901d1a2717f95d47dcdf40199df30abc000ba020f747f114f08560d119e979d882a94cf46cfc51744544d54b00319c0f2724
   languageName: node
   linkType: hard
 
@@ -2575,9 +2575,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.431":
-  version: 1.4.470
-  resolution: "electron-to-chromium@npm:1.4.470"
-  checksum: 0b1749f07b5e97b9d8f805cac6950574017cf2cf19a05cbc3dc46e7397be1d51485a5ece69478e7b12766f4643f45530b6bcebefa8916096a50f6a38dca381ca
+  version: 1.4.471
+  resolution: "electron-to-chromium@npm:1.4.471"
+  checksum: c62ac1f2e9e0395b3095899c7d07a723611a6ca9bc754935101f9f659d7fc3f564f4e47cacb5639abdc172265db041923679942c72055fc8d6522e1b57f755df
   languageName: node
   linkType: hard
 
@@ -5678,14 +5678,14 @@ __metadata:
   linkType: soft
 
 "telemetry-router@npm:^0.1.0":
-  version: 0.1.6
-  resolution: "telemetry-router@npm:0.1.6"
+  version: 0.1.7
+  resolution: "telemetry-router@npm:0.1.7"
   dependencies:
     "@jupyterlab/application": ^4.0.0
     "@jupyterlab/coreutils": ^6.0.0
     "@jupyterlab/notebook": ^4.0.3
     "@jupyterlab/services": ^7.0.0
-  checksum: 53c01324c7b7d24e651d9fe2c6e0073b6f446c99d55116cfbb1210b99ba77e6f8186f0529c9afec9e4b4ecd20aff7623ad02297b0e080f33437c9795e9f03838
+  checksum: 13d184e6c09ae021cb146c16c0c77f56e688c1670aad3fe08fb88f6508619939e3f36e149e06330b5772f2d3f7299be9c495c8411e1d92d9e1f3a4730f2f8aab
   languageName: node
   linkType: hard
 
