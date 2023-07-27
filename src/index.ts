@@ -28,8 +28,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
       const notebook = notebookPanel.content as Notebook;
 
       telemetryRouter.loadNotebookPanel(notebookPanel)
+
       const onScrolled = () => {
-        telemetryRouter.consumeEventSignal({
+        telemetryRouter.publishEvent({
           'name': 'scrolling',
           'time': new Date().toISOString()
         })
