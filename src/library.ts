@@ -1,3 +1,4 @@
+// https://github.com/educational-technology-collective/etc_jupyterlab_telemetry_library/blob/main/src/library.ts
 import {
     NotebookPanel,
     INotebookModel,
