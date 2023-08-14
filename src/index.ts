@@ -68,8 +68,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
             selection: message.selection, //  For notebookClipboard event.
             environ: message.environ,  //  For openNotebook event.
           }
-
-          telemetryRouter.publishEvent(eventDetail)
+          const logNotebookContent:boolean = config.logNotebookContentEvents.includes(message.eventName)
+          telemetryRouter.publishEvent(eventDetail, logNotebookContent)
         }
       ))
 

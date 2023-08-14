@@ -150,7 +150,7 @@ class NotebookEvent {
 
 
 export class NotebookClipboardEvent {
-
+    // static ID: 'NotebookClipboardEvent';
     private _notebookClipboardCopied: Signal<NotebookClipboardEvent, INotebookEventMessage> = new Signal(this);
     private _notebookClipboardCut: Signal<NotebookClipboardEvent, INotebookEventMessage> = new Signal(this);
     private _notebookClipboardPasted: Signal<NotebookClipboardEvent, INotebookEventMessage> = new Signal(this);
@@ -260,7 +260,7 @@ export class NotebookClipboardEvent {
 }
 
 export class NotebookVisibilityEvent extends NotebookEvent {
-
+    // static ID = 'NotebookVisibilityEvent';
     private _notebookVisible: Signal<NotebookVisibilityEvent, INotebookEventMessage> = new Signal(this);
     private _notebookHidden: Signal<NotebookVisibilityEvent, INotebookEventMessage> = new Signal(this);
     private _notebook: Notebook;
@@ -382,7 +382,7 @@ export class NotebookVisibilityEvent extends NotebookEvent {
 }
 
 export class NotebookCloseEvent {
-
+    // static ID = 'NotebookCloseEvent'
     private _notebookClosed: Signal<NotebookCloseEvent, INotebookEventMessage> = new Signal(this);
     private _notebookPanel: NotebookPanel;
     private _notebook: Notebook;
@@ -434,7 +434,7 @@ export class NotebookCloseEvent {
 }
 
 export class NotebookSaveEvent {
-
+    // static ID = 'NotebookSaveEvent'
     private _notebookSaved: Signal<NotebookSaveEvent, INotebookEventMessage> = new Signal(this);
     private _notebookPanel: NotebookPanel;
 
@@ -501,7 +501,7 @@ export class NotebookSaveEvent {
 }
 
 export class CellExecutionEvent {
-
+    // static ID = 'CellExecutionEvent'
     private _cellExecuted: Signal<CellExecutionEvent, INotebookEventMessage> = new Signal(this);
     private _notebookPanel: NotebookPanel;
     private _notebook: Notebook;
@@ -559,7 +559,7 @@ export class CellExecutionEvent {
 
 
 export class NotebookScrollEvent extends NotebookEvent {
-
+    // static ID = 'NotebookScrollEvent'
     private _notebookScrolled: Signal<NotebookScrollEvent, INotebookEventMessage> = new Signal(this);
     private _timeout: number;
 
@@ -619,7 +619,7 @@ export class NotebookScrollEvent extends NotebookEvent {
 }
 
 export class ActiveCellChangeEvent {
-
+    // static ID = 'ActiveCellChangeEvent'
     private _activeCellChanged: Signal<ActiveCellChangeEvent, INotebookEventMessage> = new Signal(this);
     private _notebookPanel: NotebookPanel;
     private _notebook: Notebook;
@@ -678,7 +678,7 @@ export class ActiveCellChangeEvent {
 }
 
 export class NotebookOpenEvent {
-
+    // static ID = 'NotebookOpenEvent'
     private _notebookOpened: Signal<NotebookOpenEvent, INotebookEventMessage> = new Signal(this);
     private _notebookPanel: NotebookPanel;
     private _notebook: Notebook;
@@ -737,7 +737,7 @@ export class NotebookOpenEvent {
 }
 
 export class CellAddEvent {
-
+    // static ID = 'CellAddEvent' 
     private _cellAdded: Signal<CellAddEvent, INotebookEventMessage> = new Signal(this);
     private _notebookPanel: NotebookPanel;
 
@@ -789,7 +789,7 @@ export class CellAddEvent {
 }
 
 export class CellRemoveEvent {
-
+    // static ID = 'CellRemoveEvent'
     private _cellRemoved: Signal<CellRemoveEvent, INotebookEventMessage> = new Signal(this);
     private _notebookPanel: NotebookPanel;
 
@@ -841,7 +841,7 @@ export class CellRemoveEvent {
 }
 
 export class CellErrorEvent {
-
+    // static ID = 'CellErrorEvent'
     private _cellErrored: Signal<CellErrorEvent, INotebookEventMessage> = new Signal(this);
     private _notebookPanel: NotebookPanel;
 

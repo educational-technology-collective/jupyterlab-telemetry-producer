@@ -9,3 +9,7 @@ c.TelemetryProducerApp.notebook_cell_execution_event = True
 c.TelemetryProducerApp.notebook_scroll_event = True
 c.TelemetryProducerApp.notebook_active_cell_change_event = True
 c.TelemetryProducerApp.notebook_cell_error_event = True
+
+c.TelemetryProducerApp.logNotebookContentEvents = [
+    'save_notebook'
+]

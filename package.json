@@ -58,7 +58,7 @@
         "@jupyterlab/coreutils": "^6.0.0",
         "@jupyterlab/notebook": "^4.0.3",
         "@jupyterlab/services": "^7.0.0",
-        "telemetry-router": "^0.1.0"
+        "telemetry-router": "^0.1.17"
     },
     "devDependencies": {
         "@jupyterlab/builder": "^4.0.0",

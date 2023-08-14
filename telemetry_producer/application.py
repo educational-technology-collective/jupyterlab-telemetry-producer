@@ -1,6 +1,6 @@
 from .handlers import RouteHandler
 from jupyter_server.extension.application import ExtensionApp
-from traitlets import Bool
+from traitlets import Bool, List
 
 class TelemetryProducerApp(ExtensionApp):
 
@@ -18,9 +18,11 @@ class TelemetryProducerApp(ExtensionApp):
     notebook_active_cell_change_event = Bool(True).tag(config=True)
     notebook_cell_error_event = Bool(True).tag(config=True)
 
+    logNotebookContentEvents = List([]).tag(config=True)
+
     def initialize_settings(self):
         try:
-            assert self.notebook_active_cell_change_event, "The c.TelemetryProducerApp.api configuration setting must be set."
+            assert self.logNotebookContentEvents, "The c.TelemetryProducerApp.logNotebookContentEvents configuration setting must be set."
 
         except Exception as e:
             self.log.error(str(e))
