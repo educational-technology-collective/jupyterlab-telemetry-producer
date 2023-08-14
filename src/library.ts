@@ -27,7 +27,7 @@ import {
 
 import { ICellMeta, IConfig, INotebookEventMessage, INotebookEventOptions } from './types';
 
-// import { requestAPI } from './handler';
+import { requestAPI } from './handler';
 
 export class ETCJupyterLabTelemetryLibrary {
 
@@ -38,7 +38,7 @@ export class ETCJupyterLabTelemetryLibrary {
     public notebookSaveEvent: NotebookSaveEvent;
     public cellExecutionEvent: CellExecutionEvent;
     public cellErrorEvent: CellErrorEvent;
-    // public notebookScrollEvent: NotebookScrollEvent;
+    public notebookScrollEvent: NotebookScrollEvent;
     public activeCellChangeEvent: ActiveCellChangeEvent;
     public cellAddEvent: CellAddEvent;
     public cellRemoveEvent: CellRemoveEvent;
@@ -86,10 +86,10 @@ export class ETCJupyterLabTelemetryLibrary {
             config: config
         });
 
-        // this.notebookScrollEvent = new NotebookScrollEvent({
-        //     notebookPanel: notebookPanel,
-        //     config: config
-        // });
+        this.notebookScrollEvent = new NotebookScrollEvent({
+            notebookPanel: notebookPanel,
+            config: config
+        });
 
         this.activeCellChangeEvent = new ActiveCellChangeEvent({
             notebookPanel: notebookPanel,
@@ -557,65 +557,65 @@ export class CellExecutionEvent {
 }
 
 
-// export class NotebookScrollEvent extends NotebookEvent {
+export class NotebookScrollEvent extends NotebookEvent {
 
-//     private _notebookScrolled: Signal<NotebookScrollEvent, INotebookEventMessage> = new Signal(this);
-//     private _timeout: number;
+    private _notebookScrolled: Signal<NotebookScrollEvent, INotebookEventMessage> = new Signal(this);
+    private _timeout: number;
 
-//     constructor({ notebookPanel, config }: INotebookEventOptions) {
-//         super(notebookPanel);
+    constructor({ notebookPanel, config }: INotebookEventOptions) {
+        super(notebookPanel);
 
-//         this._notebookPanel = notebookPanel;
-//         this._timeout = 0;
+        this._notebookPanel = notebookPanel;
+        this._timeout = 0;
 
-//         this.onScrolled = this.onScrolled.bind(this);
+        this.onScrolled = this.onScrolled.bind(this);
 
-//         notebookPanel.disposed.connect(this.onDisposed, this);
+        notebookPanel.disposed.connect(this.onDisposed, this);
 
-//         if (config.notebook_scroll_event) {
+        if (config.notebook_scroll_event) {
 
-//             (async () => {
-//                 try {
+            (async () => {
+                try {
 
-//                     await notebookPanel.revealed;
+                    await notebookPanel.revealed;
 
-//                     notebookPanel.content.node.addEventListener('scroll', this.onScrolled, false);
-//                 }
-//                 catch (e) {
-//                     console.error(e);
-//                 }
-//             })();
-//         }
-//     }
+                    notebookPanel.content.node.addEventListener('scroll', this.onScrolled, false);
+                }
+                catch (e) {
+                    console.error(e);
+                }
+            })();
+        }
+    }
 
-//     private onDisposed() {
+    private onDisposed() {
 
-//         Signal.disconnectAll(this);
-//     }
+        Signal.disconnectAll(this);
+    }
 
-//     private onScrolled(e: Event): void {
+    private onScrolled(e: Event): void {
 
-//         e.stopPropagation();
+        e.stopPropagation();
 
-//         clearTimeout(this._timeout);
+        clearTimeout(this._timeout);
 
-//         this._timeout = setTimeout(() => {
+        this._timeout = setTimeout(() => {
 
-//             let cells = this.getVisibleCells();
+            let cells = this.getVisibleCells();
 
-//             this._notebookScrolled.emit({
-//                 eventName: 'scroll',
-//                 cells: cells,
-//                 notebookPanel: this._notebookPanel
-//             });
+            this._notebookScrolled.emit({
+                eventName: 'scroll',
+                cells: cells,
+                notebookPanel: this._notebookPanel
+            });
 
-//         }, 1000);
-//     }
+        }, 1000);
+    }
 
-//     get notebookScrolled(): ISignal<NotebookScrollEvent, any> {
-//         return this._notebookScrolled;
-//     }
-// }
+    get notebookScrolled(): ISignal<NotebookScrollEvent, any> {
+        return this._notebookScrolled;
+    }
+}
 
 export class ActiveCellChangeEvent {
 
@@ -724,7 +724,7 @@ export class NotebookOpenEvent {
             eventName: 'open_notebook',
             cells: cells,
             notebookPanel: this._notebookPanel,
-            // environ: await requestAPI<any>('environ')
+            environ: await requestAPI<any>('environ')
         });
 
         this._once = true;

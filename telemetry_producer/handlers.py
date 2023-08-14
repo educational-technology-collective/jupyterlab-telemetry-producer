@@ -17,10 +17,8 @@ class RouteHandler(ExtensionHandlerMixin, JupyterHandler):
             self.set_header('Content-Type', 'application/json') 
             if resource == 'version':
                 self.finish(json.dumps(__version__))
-            elif resource == 'env':
-                self.finish(json.dumps({
-                    'workspaceID': os.getenv('WORKSPACE_ID') if os.getenv('WORKSPACE_ID') is not None else 'UNDEFINED'
-                    }))
+            elif resource == 'environ':
+                self.finish(json.dumps({k:v for k, v in os.environ.items()}))
             elif resource == 'config':
                 self.finish(json.dumps(self.config))
             else:

@@ -35,11 +35,10 @@ const plugin: JupyterFrontEndPlugin<void> = {
     telemetryRouter: ITelemetryRouter,
     notebookTracker: INotebookTracker
   ) => {
-    const config = await requestAPI<any>('config')
     const version = await requestAPI<string>('version')
-    console.log(config)
     console.log(`${PLUGIN_ID}: ${version}`)
 
+    const config = await requestAPI<any>('config')
     notebookTracker.widgetAdded.connect((notebookTracker: INotebookTracker, notebookPanel: NotebookPanel) => {
       const eventLibrary = new ETCJupyterLabTelemetryLibrary({ notebookPanel, config })
       const signals = [
@@ -55,16 +54,27 @@ const plugin: JupyterFrontEndPlugin<void> = {
         eventLibrary.notebookOpenEvent.notebookOpened,
         eventLibrary.notebookSaveEvent.notebookSaved,
         eventLibrary.notebookVisibilityEvent.notebookHidden,
-        eventLibrary.notebookVisibilityEvent.notebookVisible
+        eventLibrary.notebookVisibilityEvent.notebookVisible,
+        eventLibrary.notebookScrollEvent.notebookScrolled
       ];
 
       telemetryRouter.loadNotebookPanel(notebookPanel)
       signals.forEach((signal) => signal.connect(
-        (_, data: INotebookEventMessage) => telemetryRouter.publishEvent(data)
+        (_, message: INotebookEventMessage) => {
+          const eventDetail = {
+            eventName: message.eventName,
+            cells: message.cells,
+            kernelError: message.kernelError, //  For cellErrored event.
+            selection: message.selection, //  For notebookClipboard event.
+            environ: message.environ,  //  For openNotebook event.
+          }
+
+          telemetryRouter.publishEvent(eventDetail)
+        }
       ))
 
       // producerCollection.forEach((producer) => {
-      //   if (['ActiveCellChangedEvent', 'CellExecutionEvent'].includes(producer.id)) {
+      //   if (config.includes(producer.id)) {
       //     new producer().listen(notebookTracker, telemetryRouter)
       //   }
       // })
