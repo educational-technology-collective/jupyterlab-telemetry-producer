@@ -61,7 +61,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
       await telemetryRouter.loadNotebookPanel(notebookPanel)
       signals.forEach((signal) => signal.connect(
-        (_, message: INotebookEventMessage) => {
+        async (_, message: INotebookEventMessage) => {
           const eventDetail = {
             eventName: message.eventName,
             eventTime: Date.now(),
@@ -71,7 +71,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
             environ: message.environ,  //  For openNotebook event.
           }
           const logNotebookContentOrNot: boolean = config.logNotebookContentEvents.includes(message.eventType)
-          telemetryRouter.publishEvent(eventDetail, logNotebookContentOrNot)
+          await telemetryRouter.publishEvent(eventDetail, logNotebookContentOrNot)
         }
       ))
 
