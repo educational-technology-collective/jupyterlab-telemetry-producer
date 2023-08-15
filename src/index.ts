@@ -39,7 +39,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
     console.log(`${PLUGIN_ID}: ${version}`)
 
     const config = await requestAPI<any>('config')
-    notebookTracker.widgetAdded.connect((notebookTracker: INotebookTracker, notebookPanel: NotebookPanel) => {
+    notebookTracker.widgetAdded.connect(async (notebookTracker: INotebookTracker, notebookPanel: NotebookPanel) => {
+      await notebookPanel.sessionContext.ready // wait until session id is created
       const eventLibrary = new ETCJupyterLabTelemetryLibrary({ notebookPanel, config })
       const signals = [
         eventLibrary.activeCellChangeEvent.activeCellChanged,
@@ -58,18 +59,19 @@ const plugin: JupyterFrontEndPlugin<void> = {
         eventLibrary.notebookScrollEvent.notebookScrolled
       ];
 
-      telemetryRouter.loadNotebookPanel(notebookPanel)
+      await telemetryRouter.loadNotebookPanel(notebookPanel)
       signals.forEach((signal) => signal.connect(
         (_, message: INotebookEventMessage) => {
           const eventDetail = {
             eventName: message.eventName,
+            eventTime: Date.now(),
             cells: message.cells,
             kernelError: message.kernelError, //  For cellErrored event.
             selection: message.selection, //  For notebookClipboard event.
             environ: message.environ,  //  For openNotebook event.
           }
-          const logNotebookContent:boolean = config.logNotebookContentEvents.includes(message.eventName)
-          telemetryRouter.publishEvent(eventDetail, logNotebookContent)
+          const logNotebookContentOrNot: boolean = config.logNotebookContentEvents.includes(message.eventType)
+          telemetryRouter.publishEvent(eventDetail, logNotebookContentOrNot)
         }
       ))
 

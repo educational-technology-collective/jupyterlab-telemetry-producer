@@ -150,7 +150,7 @@ class NotebookEvent {
 
 
 export class NotebookClipboardEvent {
-    // static ID: 'NotebookClipboardEvent';
+    ID = 'NotebookClipboardEvent';
     private _notebookClipboardCopied: Signal<NotebookClipboardEvent, INotebookEventMessage> = new Signal(this);
     private _notebookClipboardCut: Signal<NotebookClipboardEvent, INotebookEventMessage> = new Signal(this);
     private _notebookClipboardPasted: Signal<NotebookClipboardEvent, INotebookEventMessage> = new Signal(this);
@@ -169,7 +169,7 @@ export class NotebookClipboardEvent {
 
         notebookPanel.disposed.connect(this.onDisposed, this);
 
-        if (config.notebook_clipboard_event) {
+        if (config.activeEvents.includes(this.ID)) {
 
             this._notebookPanel.node.addEventListener('copy', this.handleCopy, false);
             this._notebookPanel.node.addEventListener('cut', this.handleCut, false);
@@ -199,6 +199,7 @@ export class NotebookClipboardEvent {
         ];
 
         this._notebookClipboardCopied.emit({
+            eventType: this.ID,
             eventName: 'clipboard_copy',
             cells: cells,
             notebookPanel: this._notebookPanel,
@@ -220,6 +221,7 @@ export class NotebookClipboardEvent {
         ];
 
         this._notebookClipboardCut.emit({
+            eventType: this.ID,
             eventName: 'clipboard_cut',
             cells: cells,
             notebookPanel: this._notebookPanel,
@@ -241,6 +243,7 @@ export class NotebookClipboardEvent {
         ];
 
         this._notebookClipboardPasted.emit({
+            eventType: this.ID,
             eventName: 'clipboard_paste',
             cells: cells,
             notebookPanel: this._notebookPanel,
@@ -260,7 +263,7 @@ export class NotebookClipboardEvent {
 }
 
 export class NotebookVisibilityEvent extends NotebookEvent {
-    // static ID = 'NotebookVisibilityEvent';
+    ID = 'NotebookVisibilityEvent';
     private _notebookVisible: Signal<NotebookVisibilityEvent, INotebookEventMessage> = new Signal(this);
     private _notebookHidden: Signal<NotebookVisibilityEvent, INotebookEventMessage> = new Signal(this);
     private _notebook: Notebook;
@@ -279,7 +282,7 @@ export class NotebookVisibilityEvent extends NotebookEvent {
 
         notebookPanel.disposed.connect(this.onDisposed, this);
 
-        if (config.notebook_visibility_event) {
+        if (config.activeEvents.includes(this.ID)) {
 
             (async () => {
 
@@ -356,6 +359,7 @@ export class NotebookVisibilityEvent extends NotebookEvent {
             if (this._visibility === true) {
 
                 this._notebookVisible.emit({
+                    eventType: this.ID,
                     eventName: 'notebook_visible',
                     cells: cells,
                     notebookPanel: this._notebookPanel
@@ -364,6 +368,7 @@ export class NotebookVisibilityEvent extends NotebookEvent {
             else if (this._visibility === false) {
 
                 this._notebookHidden.emit({
+                    eventType: this.ID,
                     eventName: 'notebook_hidden',
                     cells: cells,
                     notebookPanel: this._notebookPanel
@@ -382,7 +387,7 @@ export class NotebookVisibilityEvent extends NotebookEvent {
 }
 
 export class NotebookCloseEvent {
-    // static ID = 'NotebookCloseEvent'
+    ID = 'NotebookCloseEvent'
     private _notebookClosed: Signal<NotebookCloseEvent, INotebookEventMessage> = new Signal(this);
     private _notebookPanel: NotebookPanel;
     private _notebook: Notebook;
@@ -392,7 +397,7 @@ export class NotebookCloseEvent {
         this._notebookPanel = notebookPanel;
         this._notebook = notebookPanel.content;
 
-        if (config.notebook_close_event) {
+        if (config.activeEvents.includes(this.ID)) {
 
             (async () => {
                 try {
@@ -422,6 +427,7 @@ export class NotebookCloseEvent {
         );
 
         this._notebookClosed.emit({
+            eventType: this.ID,
             eventName: 'close_notebook',
             cells: cells,
             notebookPanel: this._notebookPanel
@@ -434,7 +440,7 @@ export class NotebookCloseEvent {
 }
 
 export class NotebookSaveEvent {
-    // static ID = 'NotebookSaveEvent'
+    ID = 'NotebookSaveEvent'
     private _notebookSaved: Signal<NotebookSaveEvent, INotebookEventMessage> = new Signal(this);
     private _notebookPanel: NotebookPanel;
 
@@ -444,7 +450,7 @@ export class NotebookSaveEvent {
 
         notebookPanel.disposed.connect(this.onDisposed, this);
 
-        if (config.notebook_save_event) {
+        if (config.activeEvents.includes(this.ID)) {
 
             (async () => {
                 try {
@@ -488,6 +494,7 @@ export class NotebookSaveEvent {
             }
 
             this._notebookSaved.emit({
+                eventType: this.ID,
                 eventName: 'save_notebook',
                 cells: cells,
                 notebookPanel: this._notebookPanel
@@ -501,7 +508,7 @@ export class NotebookSaveEvent {
 }
 
 export class CellExecutionEvent {
-    // static ID = 'CellExecutionEvent'
+    ID = 'CellExecutionEvent'
     private _cellExecuted: Signal<CellExecutionEvent, INotebookEventMessage> = new Signal(this);
     private _notebookPanel: NotebookPanel;
     private _notebook: Notebook;
@@ -513,7 +520,7 @@ export class CellExecutionEvent {
 
         notebookPanel.disposed.connect(this.onDisposed, this);
 
-        if (config.notebook_cell_execution_event) {
+        if (config.activeEvents.includes(this.ID)) {
             (async () => {
                 try {
 
@@ -545,6 +552,7 @@ export class CellExecutionEvent {
             ]
 
             this._cellExecuted.emit({
+                eventType: this.ID,
                 eventName: 'cell_executed',
                 cells: cells,
                 notebookPanel: this._notebookPanel
@@ -559,7 +567,7 @@ export class CellExecutionEvent {
 
 
 export class NotebookScrollEvent extends NotebookEvent {
-    // static ID = 'NotebookScrollEvent'
+    ID = 'NotebookScrollEvent'
     private _notebookScrolled: Signal<NotebookScrollEvent, INotebookEventMessage> = new Signal(this);
     private _timeout: number;
 
@@ -573,7 +581,7 @@ export class NotebookScrollEvent extends NotebookEvent {
 
         notebookPanel.disposed.connect(this.onDisposed, this);
 
-        if (config.notebook_scroll_event) {
+        if (config.activeEvents.includes(this.ID)) {
 
             (async () => {
                 try {
@@ -605,6 +613,7 @@ export class NotebookScrollEvent extends NotebookEvent {
             let cells = this.getVisibleCells();
 
             this._notebookScrolled.emit({
+                eventType: this.ID,
                 eventName: 'scroll',
                 cells: cells,
                 notebookPanel: this._notebookPanel
@@ -619,7 +628,7 @@ export class NotebookScrollEvent extends NotebookEvent {
 }
 
 export class ActiveCellChangeEvent {
-    // static ID = 'ActiveCellChangeEvent'
+    ID = 'ActiveCellChangeEvent'
     private _activeCellChanged: Signal<ActiveCellChangeEvent, INotebookEventMessage> = new Signal(this);
     private _notebookPanel: NotebookPanel;
     private _notebook: Notebook;
@@ -631,7 +640,7 @@ export class ActiveCellChangeEvent {
 
         notebookPanel.disposed.connect(this.onDisposed, this);
 
-        if (config.notebook_active_cell_change_event) {
+        if (config.activeEvents.includes(this.ID)) {
 
             (async () => {
                 try {
@@ -665,6 +674,7 @@ export class ActiveCellChangeEvent {
             ];
 
             this._activeCellChanged.emit({
+                eventType: this.ID,
                 eventName: 'active_cell_changed',
                 cells: cells,
                 notebookPanel: this._notebookPanel
@@ -678,7 +688,7 @@ export class ActiveCellChangeEvent {
 }
 
 export class NotebookOpenEvent {
-    // static ID = 'NotebookOpenEvent'
+    ID = 'NotebookOpenEvent'
     private _notebookOpened: Signal<NotebookOpenEvent, INotebookEventMessage> = new Signal(this);
     private _notebookPanel: NotebookPanel;
     private _notebook: Notebook;
@@ -692,7 +702,7 @@ export class NotebookOpenEvent {
 
         notebookPanel.disposed.connect(this.onDisposed, this);
 
-        if (config.notebook_open_event) {
+        if (config.activeEvents.includes(this.ID)) {
             if (!this._once) {
                 (async () => {
                     try {
@@ -722,6 +732,7 @@ export class NotebookOpenEvent {
         );
 
         this._notebookOpened.emit({
+            eventType: this.ID,
             eventName: 'open_notebook',
             cells: cells,
             notebookPanel: this._notebookPanel,
@@ -737,7 +748,7 @@ export class NotebookOpenEvent {
 }
 
 export class CellAddEvent {
-    // static ID = 'CellAddEvent' 
+    ID = 'CellAddEvent'
     private _cellAdded: Signal<CellAddEvent, INotebookEventMessage> = new Signal(this);
     private _notebookPanel: NotebookPanel;
 
@@ -747,7 +758,7 @@ export class CellAddEvent {
 
         notebookPanel.disposed.connect(this.onDisposed, this);
 
-        if (config.notebook_cell_add_event) {
+        if (config.activeEvents.includes(this.ID)) {
             (async () => {
                 try {
 
@@ -776,6 +787,7 @@ export class CellAddEvent {
             let cells = [{ id: args.newValues[0].id, index: args.newIndex }];
 
             this._cellAdded.emit({
+                eventType: this.ID,
                 eventName: 'add_cell',
                 cells: cells,
                 notebookPanel: this._notebookPanel
@@ -789,7 +801,7 @@ export class CellAddEvent {
 }
 
 export class CellRemoveEvent {
-    // static ID = 'CellRemoveEvent'
+    ID = 'CellRemoveEvent'
     private _cellRemoved: Signal<CellRemoveEvent, INotebookEventMessage> = new Signal(this);
     private _notebookPanel: NotebookPanel;
 
@@ -799,7 +811,7 @@ export class CellRemoveEvent {
 
         notebookPanel.disposed.connect(this.onDisposed, this);
 
-        if (config.notebook_cell_remove_event) {
+        if (config.activeEvents.includes(this.ID)) {
             (async () => {
                 try {
 
@@ -828,6 +840,7 @@ export class CellRemoveEvent {
             let cells = [{ id: args.oldValues[0].id, index: args.oldIndex }];
 
             this._cellRemoved.emit({
+                eventType: this.ID,
                 eventName: 'remove_cell',
                 cells: cells,
                 notebookPanel: this._notebookPanel
@@ -841,7 +854,7 @@ export class CellRemoveEvent {
 }
 
 export class CellErrorEvent {
-    // static ID = 'CellErrorEvent'
+    ID = 'CellErrorEvent'
     private _cellErrored: Signal<CellErrorEvent, INotebookEventMessage> = new Signal(this);
     private _notebookPanel: NotebookPanel;
 
@@ -851,7 +864,7 @@ export class CellErrorEvent {
 
         notebookPanel.disposed.connect(this.onDisposed, this);
 
-        if (config.notebook_cell_error_event) {
+        if (config.activeEvents.includes(this.ID)) {
             (async () => {
                 try {
 
@@ -888,6 +901,7 @@ export class CellErrorEvent {
             ]
 
             this._cellErrored.emit({
+                eventType: this.ID,
                 eventName: 'cell_errored',
                 cells: cells,
                 notebookPanel: this._notebookPanel,
