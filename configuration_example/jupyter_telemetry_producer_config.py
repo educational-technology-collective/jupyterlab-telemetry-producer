@@ -1,3 +1,5 @@
+# This file should be saved into one of the config directories provided by `jupyter --path`.
+
 c.TelemetryProducerApp.activeEvents = [
     'NotebookOpenEvent',
     'NotebookScrollEvent',
