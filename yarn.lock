@@ -5665,21 +5665,21 @@ __metadata:
     stylelint-config-recommended: ^13.0.0
     stylelint-config-standard: ^34.0.0
     stylelint-prettier: ^4.0.0
-    telemetry-router: ^0.1.19
+    telemetry-router: ^0.1.20
     typescript: ~5.0.2
     yjs: ^13.5.0
   languageName: unknown
   linkType: soft
 
-"telemetry-router@npm:^0.1.19":
-  version: 0.1.19
-  resolution: "telemetry-router@npm:0.1.19"
+"telemetry-router@npm:^0.1.20":
+  version: 0.1.20
+  resolution: "telemetry-router@npm:0.1.20"
   dependencies:
     "@jupyterlab/application": ^4.0.0
     "@jupyterlab/coreutils": ^6.0.0
     "@jupyterlab/notebook": ^4.0.3
     "@jupyterlab/services": ^7.0.0
-  checksum: 15f0f191f5aa6d03a6046b366b13f8c008d772024589f2eb6b77ecac5a28c71379bdfe455e6ad323ce0138b906c8b832930d81c9b2a72dd800b199a556ee1a4c
+  checksum: a4c958ffe4b637f3569a8c831dadab28024d520a7f9199794343c22df5713d698fe9eb0569c7d51139ad127a998918a13422d06259e89e4eb747e8cd3f4cff52
   languageName: node
   linkType: hard
 

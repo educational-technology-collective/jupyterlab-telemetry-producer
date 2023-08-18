@@ -1,6 +1,6 @@
 {
     "name": "telemetry-producer",
-    "version": "0.1.0",
+    "version": "0.1.2",
     "description": "A JupyterLab extension.",
     "keywords": [
         "jupyter",
@@ -58,7 +58,7 @@
         "@jupyterlab/coreutils": "^6.0.0",
         "@jupyterlab/notebook": "^4.0.3",
         "@jupyterlab/services": "^7.0.0",
-        "telemetry-router": "^0.1.19"
+        "telemetry-router": "^0.1.20"
     },
     "devDependencies": {
         "@jupyterlab/builder": "^4.0.0",
