@@ -76,6 +76,41 @@ export class NotebookScrollProducer {
     }
 }
 
+export class NotebookVisibleEventProducer {
+    static id: string = 'NotebookVisibleEvent';
+
+    listen(notebookPanel: NotebookPanel, router: ITelemetryRouter, logNotebookContentEvent: boolean) {
+        document.addEventListener("visibilitychange", (
+            async () => {
+                if (document.visibilityState === 'visible') {
+                    const event = {
+                        eventName: NotebookVisibleEventProducer.id,
+                        eventTime: Date.now(),
+                        cells: getVisibleCells(notebookPanel)
+                    };
+                    await router.publishEvent(event, logNotebookContentEvent)
+                }
+            })
+        )
+    }
+}
+
+export class NotebookHiddenEventProducer {
+    static id: string = 'NotebookHiddenEvent';
+
+    listen(_: NotebookPanel, router: ITelemetryRouter, logNotebookContentEvent: boolean) {
+        document.addEventListener('visibilitychange',
+            async (e: Event) => {
+                if (document.visibilityState === 'hidden') {
+                    const event = {
+                        eventName: NotebookHiddenEventProducer.id,
+                        eventTime: Date.now(),
+                    };
+                    await router.publishEvent(event, logNotebookContentEvent)
+                }
+            })
+    }
+}
 
 export class ClipboardCopyEventProducer {
     static id: string = 'ClipboardCopyEvent';
@@ -252,14 +287,16 @@ export class CellRemoveEventProducer {
 }
 
 export const producerCollection = [
-    ActiveCellChangeEventProducer,
-    CellExecuteEventProducer,
     NotebookOpenEventProducer,
-    NotebookSaveEventProducer,
-    CellAddEventProducer,
-    CellRemoveEventProducer,
     NotebookScrollProducer,
+    NotebookVisibleEventProducer,
+    NotebookHiddenEventProducer,
     ClipboardCopyEventProducer,
     ClipboardCutEventProducer,
-    ClipboardPasteEventProducer
+    ClipboardPasteEventProducer,
+    ActiveCellChangeEventProducer,
+    NotebookSaveEventProducer,
+    CellExecuteEventProducer,
+    CellAddEventProducer,
+    CellRemoveEventProducer,
 ]
