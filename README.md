@@ -1,11 +1,11 @@
 # telemetry_producer
 
-[![Github Actions Status](/workflows/Build/badge.svg)](/actions/workflows/build.yml)
-A JupyterLab extension.
+[![PyPI](https://img.shields.io/pypi/v/telemetry-producer.svg)](https://pypi.org/project/telemetry-producer)
+[![npm](https://img.shields.io/npm/v/telemetry-producer.svg)](https://www.npmjs.com/package/telemetry-producer)
 
-This extension is composed of a Python package named `telemetry_producer`
-for the server extension and a NPM package named `telemetry-producer`
-for the frontend extension.
+A JupyterLab extension for generating telemetry data with a basic JupyterLab event library.
+
+This extension relies on the [telemetry-router](https://github.com/educational-technology-collective/telemetry-router) extension.
 
 ## Requirements
 
@@ -19,6 +19,126 @@ To install the extension, execute:
 pip install telemetry_producer
 ```
 
+The telemetry router extension is automatically installed when the telemetry producer is installed.
+
+## Basic JupyterLab Event Library
+
+### Overview
+
+| Event Producer ID       | Event Triggered When                  | Event Data Structure  |
+| ----------------------- | ------------------------------------- | --------------------- |
+| NotebookOpenEvent       | a notebook is opened                  | eventName, eventTime, environ: current environment data               |
+| NotebookScrollEvent     | user scrolls on the notebook          | eventName, eventTime, cells: visible cells after scrolling            | 
+| NotebookVisibleEvent    | user navigates back to Jupyter Lab    | eventName, eventTime, cells: visible cells when user navigate back    |  
+| NotebookHiddenEvent     | user leaves the Jupyter Lab tab       | eventName, eventTime                                                  | 
+| ClipboardCopyEvent      | user copies from a notebook cell      | eventName, eventTime, cells: cell copied from, selection: copied text |
+| ClipboardCutEvent       | user cuts from a notebook cell        | eventName, eventTime, cells: cell cut from, selection: cut text       | 
+| ClipboardPasteEvent     | user pastes to a notebook cell        | eventName, eventTime, cells: cell pasted to, selection: pasted text   |
+| ActiveCellChangeEvent   | user moves focus to a different cell  | eventName, eventTime, cells: activated cell                           |
+| NotebookSaveEvent       | a notebook is saved                   | eventName, eventTime                                                  | 
+| CellExecuteEvent        | a cell is executed                    | eventName, eventTime, cells: executed cell, success, kernelError: error detail if execution failed | 
+| CellAddEvent            | a new cell is added                   | eventName, eventTime, cells: added cell                               | 
+| CellRemoveEvent         | a cell is removed                     | eventName, eventTime, cells: removed cell                             | 
+
+### Example Event Producer
+
+```
+// in events.ts
+...
+...
+class ActiveCellChangeEventProducer {
+  static id: string = 'ActiveCellChangeEvent';
+
+  listen(
+    notebookPanel: NotebookPanel,
+    router: ITelemetryRouter,
+    logNotebookContentEvent: boolean
+  ) {
+    notebookPanel.content.activeCellChanged.connect(
+      async (_, cell: Cell<ICellModel> | null) => {
+        if (cell && notebookPanel.content.widgets) {
+          const activatedCell = {
+            id: cell?.model.id,
+            index: notebookPanel.content.widgets.findIndex(
+              value => value === cell
+            )
+          };
+          const event = {
+            eventName: ActiveCellChangeEventProducer.id,
+            eventTime: Date.now(),
+            cells: [activatedCell] // activated cell
+          };
+          await router.publishEvent(event, logNotebookContentEvent);
+        }
+      }
+    );
+  }
+}
+
+export const producerCollection = [
+  ActiveCellChangeEventProducer,
+  ...
+];
+
+
+
+// in index.ts
+import { producerCollection } from './events';
+...
+...
+    await notebookPanel.sessionContext.ready; // wait until session id is created
+    await telemetryRouter.loadNotebookPanel(notebookPanel);
+
+    producerCollection.forEach(producer => {
+        if (config.activeEvents.includes(producer.id)) {
+            new producer().listen(
+                notebookPanel,
+                telemetryRouter,
+                config.logNotebookContentEvents.includes(producer.id)
+            );
+        }
+    });
+```
+
+## Configurations
+### Syntax
+`activateEvents`: required. An array of the ids of the events. Only valid event producers (1. has an id associated with the event producer class, and 2. the event id is included in `activatedEvents`) will be activated.
+
+`logNotebookContentEvents`: required. An array of the ids of the events. Only valid event producers (1. has an id associated with the event producer class, and 2. the event id is included in `logNotebookContentEvents`) will have the router export the entire notebook content along with the event data.
+
+**The configuration file should be saved into one of the config directories provided by `jupyter --path`.**
+### Example
+```
+c.TelemetryProducerApp.activeEvents = [
+    'NotebookOpenEvent',
+    'NotebookScrollEvent',
+    # 'NotebookVisibleEvent',
+    # 'NotebookHiddenEvent',
+    'ClipboardCopyEvent',
+    'ClipboardCutEvent',
+    'ClipboardPasteEvent',
+    'ActiveCellChangeEvent',
+    'NotebookSaveEvent',
+    'CellExecuteEvent',
+    'CellAddEvent',
+    'CellRemoveEvent',
+]
+
+c.TelemetryProducerApp.logNotebookContentEvents = [
+    'NotebookOpenEvent',
+    # 'NotebookScrollEvent',
+    # 'NotebookVisibleEvent',
+    # 'NotebookHiddenEvent',
+    # 'ClipboardCopyEvent',
+    # 'ClipboardCutEvent',
+    # 'ClipboardPasteEvent',
+    # 'ActiveCellChangeEvent',
+    'NotebookSaveEvent',
+    # 'CellExecuteEvent',
+    # 'CellAddEvent',
+    # 'CellRemoveEvent',
+]
+```
 ## Uninstall
 
 To remove the extension, execute:
