@@ -1,4 +1,4 @@
-# telemetry_producer
+# Telemetry Producer
 
 [![PyPI](https://img.shields.io/pypi/v/telemetry-producer.svg)](https://pypi.org/project/telemetry-producer)
 [![npm](https://img.shields.io/npm/v/telemetry-producer.svg)](https://www.npmjs.com/package/telemetry-producer)
@@ -16,33 +16,39 @@ This extension relies on the [telemetry-router](https://github.com/educational-t
 To install the extension, execute:
 
 ```bash
-pip install telemetry_producer
+pip install telemetry-producer
 ```
 
-The telemetry router extension is automatically installed when the telemetry producer is installed.
+The `telemetry-router` extension is automatically installed when `telemetry-producer` is installed.
+
+Before starting Jupyter Lab with the telemetry system, users need to write their own producer/router configuration files (or use the configuration example) and **place them in the correct directory**.
+
+Examples of producer configurations are [here](#configurations).
+
+Examples of router configurations are [here](https://github.com/educational-technology-collective/telemetry-router#configurations).
 
 ## Basic JupyterLab Event Library
 
 ### Overview
 
-| Event Producer ID       | Event Triggered When                  | Event Data Structure  |
-| ----------------------- | ------------------------------------- | --------------------- |
-| NotebookOpenEvent       | a notebook is opened                  | eventName, eventTime, environ: current environment data               |
-| NotebookScrollEvent     | user scrolls on the notebook          | eventName, eventTime, cells: visible cells after scrolling            | 
-| NotebookVisibleEvent    | user navigates back to Jupyter Lab    | eventName, eventTime, cells: visible cells when user navigate back    |  
-| NotebookHiddenEvent     | user leaves the Jupyter Lab tab       | eventName, eventTime                                                  | 
-| ClipboardCopyEvent      | user copies from a notebook cell      | eventName, eventTime, cells: cell copied from, selection: copied text |
-| ClipboardCutEvent       | user cuts from a notebook cell        | eventName, eventTime, cells: cell cut from, selection: cut text       | 
-| ClipboardPasteEvent     | user pastes to a notebook cell        | eventName, eventTime, cells: cell pasted to, selection: pasted text   |
-| ActiveCellChangeEvent   | user moves focus to a different cell  | eventName, eventTime, cells: activated cell                           |
-| NotebookSaveEvent       | a notebook is saved                   | eventName, eventTime                                                  | 
-| CellExecuteEvent        | a cell is executed                    | eventName, eventTime, cells: executed cell, success, kernelError: error detail if execution failed | 
-| CellAddEvent            | a new cell is added                   | eventName, eventTime, cells: added cell                               | 
-| CellRemoveEvent         | a cell is removed                     | eventName, eventTime, cells: removed cell                             | 
+| Event Producer ID     | Event Triggered When                 | Event Data Structure                                                                               |
+| --------------------- | ------------------------------------ | -------------------------------------------------------------------------------------------------- |
+| NotebookOpenEvent     | a notebook is opened                 | eventName, eventTime, environ: current environment data                                            |
+| NotebookScrollEvent   | user scrolls on the notebook         | eventName, eventTime, cells: visible cells after scrolling                                         |
+| NotebookVisibleEvent  | user navigates back to Jupyter Lab   | eventName, eventTime, cells: visible cells when user navigates back                                |
+| NotebookHiddenEvent   | user leaves the Jupyter Lab tab      | eventName, eventTime                                                                               |
+| ClipboardCopyEvent    | user copies from a notebook cell     | eventName, eventTime, cells: cell copied from, selection: copied text                              |
+| ClipboardCutEvent     | user cuts from a notebook cell       | eventName, eventTime, cells: cell cut from, selection: cut text                                    |
+| ClipboardPasteEvent   | user pastes to a notebook cell       | eventName, eventTime, cells: cell pasted to, selection: pasted text                                |
+| ActiveCellChangeEvent | user moves focus to a different cell | eventName, eventTime, cells: activated cell                                                        |
+| NotebookSaveEvent     | a notebook is saved                  | eventName, eventTime                                                                               |
+| CellExecuteEvent      | a cell is executed                   | eventName, eventTime, cells: executed cell, success, kernelError: error detail if execution failed |
+| CellAddEvent          | a new cell is added                  | eventName, eventTime, cells: added cell                                                            |
+| CellRemoveEvent       | a cell is removed                    | eventName, eventTime, cells: removed cell                                                          |
 
 ### Example Event Producer
 
-```
+```typescript
 // in events.ts
 ...
 ...
@@ -101,14 +107,18 @@ import { producerCollection } from './events';
 ```
 
 ## Configurations
+
 ### Syntax
+
 `activateEvents`: required. An array of the ids of the events. Only valid event producers (1. has an id associated with the event producer class, and 2. the event id is included in `activatedEvents`) will be activated.
 
 `logNotebookContentEvents`: required. An array of the ids of the events. Only valid event producers (1. has an id associated with the event producer class, and 2. the event id is included in `logNotebookContentEvents`) will have the router export the entire notebook content along with the event data.
 
 **The configuration file should be saved into one of the config directories provided by `jupyter --path`.**
+
 ### Example
-```
+
+```python
 c.TelemetryProducerApp.activeEvents = [
     'NotebookOpenEvent',
     'NotebookScrollEvent',
@@ -139,12 +149,13 @@ c.TelemetryProducerApp.logNotebookContentEvents = [
     # 'CellRemoveEvent',
 ]
 ```
+
 ## Uninstall
 
 To remove the extension, execute:
 
 ```bash
-pip uninstall telemetry_producer
+pip uninstall telemetry-producer
 ```
 
 ## Troubleshoot
@@ -165,6 +176,8 @@ jupyter labextension list
 
 ## Contributing
 
+**To write your own telemetry producer extensions, a tutorial with a simple demo could be find [here](https://github.com/educational-technology-collective/etc_jupyterlab_telemetry_producer_demo).**
+
 ### Development install
 
 Note: You will need NodeJS to build the extension package.
@@ -175,13 +188,13 @@ The `jlpm` command is JupyterLab's pinned version of
 
 ```bash
 # Clone the repo to your local environment
-# Change directory to the telemetry_producer directory
+# Change directory to the telemetry-producer directory
 # Install package in development mode
 pip install -e "."
 # Link your development version of the extension with JupyterLab
 jupyter labextension develop . --overwrite
 # Server extension must be manually installed in develop mode
-jupyter server extension enable telemetry_producer
+jupyter server extension enable telemetry-producer
 # Rebuild extension Typescript source after making changes
 jlpm build
 ```
@@ -207,8 +220,8 @@ jupyter lab build --minimize=False
 
 ```bash
 # Server extension must be manually disabled in develop mode
-jupyter server extension disable telemetry_producer
-pip uninstall telemetry_producer
+jupyter server extension disable telemetry-producer
+pip uninstall telemetry-producer
 ```
 
 In development mode, you will also need to remove the symlink created by `jupyter labextension develop`
