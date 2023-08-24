@@ -1,4 +1,4 @@
-# Telemetry Producer
+# JupyterLab Telemetry Producer
 
 [![PyPI](https://img.shields.io/pypi/v/jupyterlab-telemetry-producer.svg)](https://pypi.org/project/jupyterlab-telemetry-producer)
 [![npm](https://img.shields.io/npm/v/jupyterlab-telemetry-producer.svg)](https://www.npmjs.com/package/jupyterlab-telemetry-producer)
