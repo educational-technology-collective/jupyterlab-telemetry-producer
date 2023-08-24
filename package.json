@@ -1,20 +1,20 @@
 {
-    "name": "telemetry-producer",
-    "version": "0.1.3",
+    "name": "jupyterlab-telemetry-producer",
+    "version": "0.1.4",
     "description": "A JupyterLab extension.",
     "keywords": [
         "jupyter",
         "jupyterlab",
         "jupyterlab-extension"
     ],
-    "homepage": "https://github.com/educational-technology-collective/telemetry-producer",
+    "homepage": "https://github.com/educational-technology-collective/jupyterlab-telemetry-producer",
     "bugs": {
-        "url": "https://github.com/educational-technology-collective/telemetry-producer/issues"
+        "url": "https://github.com/educational-technology-collective/jupyterlab-telemetry-producer/issues"
     },
     "license": "BSD-3-Clause",
     "author": {
-        "name": "mengyanw",
-        "email": "mengyanw@umich.edu"
+        "name": "Educational Technology Collective",
+        "email": "etc-jupyterlab-telemetry@umich.edu"
     },
     "files": [
         "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",
@@ -25,7 +25,7 @@
     "style": "style/index.css",
     "repository": {
         "type": "git",
-        "url": "https://github.com/educational-technology-collective/telemetry-producer.git"
+        "url": "https://github.com/educational-technology-collective/jupyterlab-telemetry-producer.git"
     },
     "scripts": {
         "build": "jlpm build:lib && jlpm build:labextension:dev",
@@ -37,7 +37,7 @@
         "clean": "jlpm clean:lib",
         "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
         "clean:lintcache": "rimraf .eslintcache .stylelintcache",
-        "clean:labextension": "rimraf telemetry_producer/labextension telemetry_producer/_version.py",
+        "clean:labextension": "rimraf jupyterlab-telemetry-producer/labextension jupyterlab-telemetry-producer/_version.py",
         "clean:all": "jlpm clean:lib && jlpm clean:labextension && jlpm clean:lintcache",
         "eslint": "jlpm eslint:check --fix",
         "eslint:check": "eslint . --cache --ext .ts,.tsx",
@@ -58,7 +58,7 @@
         "@jupyterlab/coreutils": "^6.0.0",
         "@jupyterlab/notebook": "^4.0.3",
         "@jupyterlab/services": "^7.0.0",
-        "telemetry-router": "^0.1.20"
+        "jupyterlab-telemetry-router": "^0.1.20"
     },
     "devDependencies": {
         "@jupyterlab/builder": "^4.0.0",
@@ -98,14 +98,14 @@
                     "pip"
                 ],
                 "base": {
-                    "name": "telemetry_producer"
+                    "name": "jupyterlab-telemetry-producer"
                 }
             }
         },
         "extension": true,
-        "outputDir": "telemetry_producer/labextension",
+        "outputDir": "jupyterlab-telemetry-producer/labextension",
         "sharedPackages": {
-            "telemetry-router": {
+            "jupyterlab-telemetry-router": {
                 "bundled": false,
                 "singleton": true,
                 "strictVersion": true

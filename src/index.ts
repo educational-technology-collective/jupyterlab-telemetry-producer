@@ -3,11 +3,11 @@ import {
   JupyterFrontEndPlugin
 } from '@jupyterlab/application';
 import { INotebookTracker, NotebookPanel } from '@jupyterlab/notebook';
-import { ITelemetryRouter } from 'telemetry-router';
+import { ITelemetryRouter } from 'jupyterlab-telemetry-router';
 import { requestAPI } from './handler';
 import { producerCollection } from './events';
 
-const PLUGIN_ID = 'telemetry-producer:plugin';
+const PLUGIN_ID = 'jupyterlab-telemetry-producer:plugin';
 
 const plugin: JupyterFrontEndPlugin<void> = {
   id: PLUGIN_ID,

@@ -1,11 +1,11 @@
 # Telemetry Producer
 
-[![PyPI](https://img.shields.io/pypi/v/telemetry-producer.svg)](https://pypi.org/project/telemetry-producer)
-[![npm](https://img.shields.io/npm/v/telemetry-producer.svg)](https://www.npmjs.com/package/telemetry-producer)
+[![PyPI](https://img.shields.io/pypi/v/jupyterlab-telemetry-producer.svg)](https://pypi.org/project/jupyterlab-telemetry-producer)
+[![npm](https://img.shields.io/npm/v/jupyterlab-telemetry-producer.svg)](https://www.npmjs.com/package/jupyterlab-telemetry-producer)
 
 A JupyterLab extension for generating telemetry data with a basic JupyterLab event library.
 
-This extension relies on the [telemetry-router](https://github.com/educational-technology-collective/telemetry-router) extension.
+This extension relies on the [jupyterlab-telemetry-router](https://github.com/educational-technology-collective/jupyterlab-telemetry-router) extension.
 
 ## Requirements
 
@@ -16,16 +16,16 @@ This extension relies on the [telemetry-router](https://github.com/educational-t
 To install the extension, execute:
 
 ```bash
-pip install telemetry-producer
+pip install jupyterlab-telemetry-producer
 ```
 
-The `telemetry-router` extension is automatically installed when `telemetry-producer` is installed.
+The `jupyterlab-telemetry-router` extension is automatically installed when `jupyterlab-telemetry-producer` is installed.
 
 Before starting Jupyter Lab with the telemetry system, users need to write their own producer/router configuration files (or use the configuration example) and **place them in the correct directory**.
 
 Examples of producer configurations are [here](#configurations).
 
-Examples of router configurations are [here](https://github.com/educational-technology-collective/telemetry-router#configurations).
+Examples of router configurations are [here](https://github.com/educational-technology-collective/jupyterlab-telemetry-router#configurations).
 
 ## Basic JupyterLab Event Library
 
@@ -119,7 +119,7 @@ import { producerCollection } from './events';
 ### Example
 
 ```python
-c.TelemetryProducerApp.activeEvents = [
+c.JupyterLabTelemetryProducerApp.activeEvents = [
     'NotebookOpenEvent',
     'NotebookScrollEvent',
     # 'NotebookVisibleEvent',
@@ -134,7 +134,7 @@ c.TelemetryProducerApp.activeEvents = [
     'CellRemoveEvent',
 ]
 
-c.TelemetryProducerApp.logNotebookContentEvents = [
+c.JupyterLabTelemetryProducerApp.logNotebookContentEvents = [
     'NotebookOpenEvent',
     # 'NotebookScrollEvent',
     # 'NotebookVisibleEvent',
@@ -155,7 +155,7 @@ c.TelemetryProducerApp.logNotebookContentEvents = [
 To remove the extension, execute:
 
 ```bash
-pip uninstall telemetry-producer
+pip uninstall jupyterlab-telemetry-producer
 ```
 
 ## Troubleshoot
@@ -176,7 +176,7 @@ jupyter labextension list
 
 ## Contributing
 
-**To write your own telemetry producer extensions, a tutorial with a simple demo could be find [here](https://github.com/educational-technology-collective/etc_jupyterlab_telemetry_producer_demo).**
+**To write your own telemetry producer extensions, a tutorial with a simple demo could be find [here](https://github.com/educational-technology-collective/jupyterlab_telemetry_producer_demo).**
 
 ### Development install
 
@@ -188,13 +188,13 @@ The `jlpm` command is JupyterLab's pinned version of
 
 ```bash
 # Clone the repo to your local environment
-# Change directory to the telemetry-producer directory
+# Change directory to the jupyterlab-telemetry-producer directory
 # Install package in development mode
 pip install -e "."
 # Link your development version of the extension with JupyterLab
 jupyter labextension develop . --overwrite
 # Server extension must be manually installed in develop mode
-jupyter server extension enable telemetry-producer
+jupyter server extension enable jupyterlab-telemetry-producer
 # Rebuild extension Typescript source after making changes
 jlpm build
 ```
@@ -220,13 +220,13 @@ jupyter lab build --minimize=False
 
 ```bash
 # Server extension must be manually disabled in develop mode
-jupyter server extension disable telemetry-producer
-pip uninstall telemetry-producer
+jupyter server extension disable jupyterlab-telemetry-producer
+pip uninstall jupyterlab-telemetry-producer
 ```
 
 In development mode, you will also need to remove the symlink created by `jupyter labextension develop`
 command. To find its location, you can run `jupyter labextension list` to figure out where the `labextensions`
-folder is located. Then you can remove the symlink named `telemetry-producer` within that folder.
+folder is located. Then you can remove the symlink named `jupyterlab-telemetry-producer` within that folder.
 
 ### Packaging the extension
 

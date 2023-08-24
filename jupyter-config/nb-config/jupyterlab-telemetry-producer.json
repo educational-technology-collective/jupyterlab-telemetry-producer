@@ -1,7 +1,7 @@
 {
   "NotebookApp": {
     "nbserver_extensions": {
-      "telemetry_producer": true
+      "jupyterlab-telemetry-producer": true
     }
   }
 }

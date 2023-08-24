@@ -1,6 +1,6 @@
 # This file should be saved into one of the config directories provided by `jupyter --path`.
 
-c.TelemetryProducerApp.activeEvents = [
+c.JupyterLabTelemetryProducerApp.activeEvents = [
     'NotebookOpenEvent',
     'NotebookScrollEvent',
     'NotebookVisibleEvent',
@@ -15,7 +15,7 @@ c.TelemetryProducerApp.activeEvents = [
     'CellRemoveEvent',
 ]
 
-c.TelemetryProducerApp.logNotebookContentEvents = [
+c.JupyterLabTelemetryProducerApp.logNotebookContentEvents = [
     'NotebookOpenEvent',
     # 'NotebookScrollEvent',
     # 'NotebookVisibleEvent',

@@ -7,7 +7,7 @@ import {
 import { Cell, ICellModel } from '@jupyterlab/cells';
 import { DocumentRegistry } from '@jupyterlab/docregistry';
 import { IObservableList } from '@jupyterlab/observables';
-import { ITelemetryRouter } from 'telemetry-router';
+import { ITelemetryRouter } from 'jupyterlab-telemetry-router';
 import { requestAPI } from './handler';
 
 export class NotebookOpenEventProducer {

@@ -7,9 +7,9 @@ node_modules/
 *.egg-info/
 .ipynb_checkpoints
 *.tsbuildinfo
-telemetry_producer/labextension
+jupyterlab-telemetry-producer/labextension
 # Version file is handled by hatchling
-telemetry_producer/_version.py
+jupyterlab-telemetry-producer/_version.py
 
 # Created by https://www.gitignore.io/api/python
 # Edit at https://www.gitignore.io/?templates=python

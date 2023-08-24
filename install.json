@@ -1,5 +1,5 @@
 {
   "packageManager": "python",
-  "packageName": "telemetry_producer",
-  "uninstallInstructions": "Use your Python package manager (pip, conda, etc.) to uninstall the package telemetry_producer"
+  "packageName": "jupyterlab-telemetry-producer",
+  "uninstallInstructions": "Use your Python package manager (pip, conda, etc.) to uninstall the package jupyterlab-telemetry-producer"
 }
