@@ -23,7 +23,9 @@ export class NotebookOpenEventProducer {
       const event = {
         eventName: NotebookOpenEventProducer.id,
         eventTime: Date.now(),
-        environ: await requestAPI<any>('environ')
+        eventInfo: {
+          environ: await requestAPI<any>('environ')
+        }
       };
       await router.publishEvent(event, logNotebookContentEvent);
       this.produced = true;
@@ -71,7 +73,9 @@ export class NotebookScrollProducer {
       const event = {
         eventName: NotebookScrollProducer.id,
         eventTime: Date.now(),
-        cells: getVisibleCells(notebookPanel)
+        eventInfo: {
+          cells: getVisibleCells(notebookPanel)
+        }
       };
       await router.publishEvent(event, logNotebookContentEvent);
     });
@@ -91,7 +95,9 @@ export class NotebookVisibleEventProducer {
         const event = {
           eventName: NotebookVisibleEventProducer.id,
           eventTime: Date.now(),
-          cells: getVisibleCells(notebookPanel)
+          eventInfo: {
+            cells: getVisibleCells(notebookPanel)
+          }
         };
         await router.publishEvent(event, logNotebookContentEvent);
       }
@@ -138,8 +144,10 @@ export class ClipboardCopyEventProducer {
       const event = {
         eventName: ClipboardCopyEventProducer.id,
         eventTime: Date.now(),
-        cells: [cell],
-        selection: text
+        eventInfo: {
+          cells: [cell],
+          selection: text
+        }
       };
       await router.publishEvent(event, logNotebookContentEvent);
     });
@@ -164,8 +172,10 @@ export class ClipboardCutEventProducer {
       const event = {
         eventName: ClipboardCutEventProducer.id,
         eventTime: Date.now(),
-        cells: [cell],
-        selection: text
+        eventInfo: {
+          cells: [cell],
+          selection: text
+        }
       };
       await router.publishEvent(event, logNotebookContentEvent);
     });
@@ -192,8 +202,10 @@ export class ClipboardPasteEventProducer {
       const event = {
         eventName: ClipboardPasteEventProducer.id,
         eventTime: Date.now(),
-        cells: [cell],
-        selection: text
+        eventInfo: {
+          cells: [cell],
+          selection: text
+        }
       };
       await router.publishEvent(event, logNotebookContentEvent);
     });
@@ -220,7 +232,9 @@ export class ActiveCellChangeEventProducer {
           const event = {
             eventName: ActiveCellChangeEventProducer.id,
             eventTime: Date.now(),
-            cells: [activatedCell] // activated cell
+            eventInfo: {
+              cells: [activatedCell] // activated cell
+            }
           };
           await router.publishEvent(event, logNotebookContentEvent);
         }
@@ -272,9 +286,11 @@ export class CellExecuteEventProducer {
         const event = {
           eventName: CellExecuteEventProducer.id,
           eventTime: Date.now(),
-          cells: [executedCell],
-          success: args.success,
-          kernelError: args.success ? null : args.error
+          eventInfo: {
+            cells: [executedCell],
+            success: args.success,
+            kernelError: args.success ? null : args.error
+          }
         };
         await router.publishEvent(event, logNotebookContentEvent);
       }
@@ -300,7 +316,9 @@ export class CellAddEventProducer {
           const event = {
             eventName: CellAddEventProducer.id,
             eventTime: Date.now(),
-            cells: [addedCell]
+            eventInfo: {
+              cells: [addedCell]
+            }
           };
           await router.publishEvent(event, logNotebookContentEvent);
         }
@@ -327,7 +345,9 @@ export class CellRemoveEventProducer {
           const event = {
             eventName: CellRemoveEventProducer.id,
             eventTime: Date.now(),
-            cells: [removedCell]
+            eventInfo: {
+              cells: [removedCell]
+            }
           };
           await router.publishEvent(event, logNotebookContentEvent);
         }
