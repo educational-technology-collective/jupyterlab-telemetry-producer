@@ -7,11 +7,16 @@ A JupyterLab extension for generating telemetry data with a basic JupyterLab eve
 
 This extension relies on the [jupyterlab-telemetry-router](https://github.com/educational-technology-collective/jupyterlab-telemetry-router) extension.
 
-## Requirements
+## Get started
 
-- JupyterLab >= 4.0.0
-
-## Install
+### Run the telemetry system with docker compose
+```bash
+# enter the configuration_example directory and run
+docker compose -p jupyterlab-telemetry up --build
+```
+ A JupyterLab application with the telemetry system installed and configured will run on localhost:8888.
+ 
+### Or install the extension and configure it manually
 
 To install the extension, execute:
 
@@ -21,7 +26,7 @@ pip install jupyterlab-telemetry-producer
 
 The `jupyterlab-telemetry-router` extension is automatically installed when `jupyterlab-telemetry-producer` is installed.
 
-Before starting Jupyter Lab with the telemetry system, users need to write their own producer/router configuration files (or use the configuration example) and **place them in the correct directory**.
+Before starting Jupyter Lab with the telemetry system, users need to write their own producer/router configuration files (or use provided configuration examples) and **place them in the correct directory**.
 
 Examples of producer configurations are [here](#configurations).
 
