@@ -1,6 +1,6 @@
 {
     "name": "jupyterlab-telemetry-producer",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "description": "A JupyterLab extension.",
     "keywords": [
         "jupyter",
@@ -37,7 +37,7 @@
         "clean": "jlpm clean:lib",
         "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
         "clean:lintcache": "rimraf .eslintcache .stylelintcache",
-        "clean:labextension": "rimraf jupyterlab-telemetry-producer/labextension jupyterlab-telemetry-producer/_version.py",
+        "clean:labextension": "rimraf jupyterlab_telemetry_producer/labextension jupyterlab_telemetry_producer/_version.py",
         "clean:all": "jlpm clean:lib && jlpm clean:labextension && jlpm clean:lintcache",
         "eslint": "jlpm eslint:check --fix",
         "eslint:check": "eslint . --cache --ext .ts,.tsx",
@@ -98,12 +98,12 @@
                     "pip"
                 ],
                 "base": {
-                    "name": "jupyterlab-telemetry-producer"
+                    "name": "jupyterlab_telemetry_producer"
                 }
             }
         },
         "extension": true,
-        "outputDir": "jupyterlab-telemetry-producer/labextension",
+        "outputDir": "jupyterlab_telemetry_producer/labextension",
         "sharedPackages": {
             "jupyterlab-telemetry-router": {
                 "bundled": false,

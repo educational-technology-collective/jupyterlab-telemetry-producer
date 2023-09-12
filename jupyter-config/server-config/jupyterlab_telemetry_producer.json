@@ -1,7 +1,7 @@
 {
   "ServerApp": {
     "jpserver_extensions": {
-      "jupyterlab-telemetry-producer": true
+      "jupyterlab_telemetry_producer": true
     }
   }
 }

@@ -51,66 +51,6 @@ Examples of router configurations are [here](https://github.com/educational-tech
 | CellAddEvent          | a new cell is added                  | eventName, eventTime, cells: added cell                                                            |
 | CellRemoveEvent       | a cell is removed                    | eventName, eventTime, cells: removed cell                                                          |
 
-### Example Event Producer
-
-```typescript
-// in events.ts
-...
-...
-class ActiveCellChangeEventProducer {
-  static id: string = 'ActiveCellChangeEvent';
-
-  listen(
-    notebookPanel: NotebookPanel,
-    router: ITelemetryRouter,
-    logNotebookContentEvent: boolean
-  ) {
-    notebookPanel.content.activeCellChanged.connect(
-      async (_, cell: Cell<ICellModel> | null) => {
-        if (cell && notebookPanel.content.widgets) {
-          const activatedCell = {
-            id: cell?.model.id,
-            index: notebookPanel.content.widgets.findIndex(
-              value => value === cell
-            )
-          };
-          const event = {
-            eventName: ActiveCellChangeEventProducer.id,
-            eventTime: Date.now(),
-            cells: [activatedCell] // activated cell
-          };
-          await router.publishEvent(event, logNotebookContentEvent);
-        }
-      }
-    );
-  }
-}
-
-export const producerCollection = [
-  ActiveCellChangeEventProducer,
-  ...
-];
-
-
-
-// in index.ts
-import { producerCollection } from './events';
-...
-...
-    await notebookPanel.sessionContext.ready; // wait until session id is created
-    await telemetryRouter.loadNotebookPanel(notebookPanel);
-
-    producerCollection.forEach(producer => {
-        if (config.activeEvents.includes(producer.id)) {
-            new producer().listen(
-                notebookPanel,
-                telemetryRouter,
-                config.logNotebookContentEvents.includes(producer.id)
-            );
-        }
-    });
-```
-
 ## Configurations
 
 ### Syntax
